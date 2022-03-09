@@ -1,0 +1,11 @@
+snippet dpy.cog
+import discord
+from discord.ext import commands
+
+class $1(commands.Cog):
+	def __init__(self, bot: commands.Bot) -> None:
+		self._bot = bot
+
+def setup(bot: commands.Bot) -> None:
+	bot.add_cog($1(bot))
+endsnippet
