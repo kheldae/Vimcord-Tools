@@ -1,11 +1,61 @@
+# main snippet, it fills a working main.py file
+# It also supports slash commands
+snippet dpy.main
+import json, os, discord
+from discord.ext import commands
+from discord_slash import SlashCommand
+
+# Get configuration.json
+with open("configuration.json",'r') as config:
+	data = json.load(config)
+	#insert decryption algorithm here
+	token = data['token']
+	prefix = data['prefix']
+
+# Loading base Intents
+intents = discord.Intents.default()
+# Creating the bot
+bot = commands.Bot(orefix, intents=intents)
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
+
+# Loading Cogs
+if __name__ == "__main__":
+	for filename in os.listdir("Cogs"):
+		if filename.endswith(".py"):
+			bot.load_extension(f"Cogs.{filename[:-3]}")
+	print("Cogs loaded")
+
+@bot.event
+async def on_ready():
+	print(f"We have logged in as {bot.user}")
+	print(discord.__version__)
+	await bot.change_presence(
+		activity=discord.Activity(type=discord.ActivityType.playing,
+								name="How to cuddle your pet kraken"))
+
+bot.run(token)								
+endsnippet
+
+
+# Snippet to create a Cog in discord.py
 snippet dpy.cog
 import discord
 from discord.ext import commands
 
+
 class $1(commands.Cog):
+
 	def __init__(self, bot: commands.Bot) -> None:
 		self._bot = bot
 
+
 def setup(bot: commands.Bot) -> None:
 	bot.add_cog($1(bot))
+endsnippet
+
+# Snippet to create a basic standard command
+snippet dpy.cmd
+@commands.command(name="$0")
+async def $1(self, ctx: commands.Context) -> None:
+	await ctx.send(content="template command")
 endsnippet
