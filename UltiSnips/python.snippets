@@ -59,3 +59,40 @@ snippet dpy.cmd
 async def $2(self, ctx: commands.Context) -> None:
 	await ctx.send(content="template command")
 endsnippet
+
+# Another snippet for standard commands, but evolved ones
+snippet dpy.cmd+
+@commands.command(
+	name="$1",
+	aliases=["$2"],
+	usage="$3",
+	description="$4")
+@commands.guild_only($5)
+@commands.has_permissions($6)
+@commands.bot_has_permissions($7)
+async def $8(self, ctx: commands.Context) -> None:
+	await ctx.send(content="template command")
+endsnippet
+
+# A bit of slash subcommands, for the flavor of sorting them
+snippet dpy.slashsubcmd
+@cog_ext.cog_subcommand(
+	base="${1:cat}",
+	name="${2:summoner}",
+	description="${3:A command to summon a bit of kittens}",
+	guild_ids=[$4],
+	options=[{
+		"name":"${5:cats}",
+		"description":"${6:the number of cats to summon}",
+		"type":${7:4},
+		"required":${8:True}
+	}])
+async def ${9:cat_seller}(self, ctx: SlashContext, ${5:cats}: int) -> None:
+	if not 0 <= cats < 200:
+		return
+	tmp: str = ":cat: " * cats
+	await ctx.send(
+		hidden=False,
+		content=f"{ctx.author.mention}, here are your cats.\n{tmp}"
+	)
+endsnippet
