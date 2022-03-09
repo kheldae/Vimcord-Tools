@@ -96,3 +96,12 @@ async def ${9:cat_seller}(self, ctx: SlashContext, ${5:cats}: int) -> None:
 		content=f"{ctx.author.mention}, here are your cats.\n{tmp}"
 	)
 endsnippet
+
+# Snippet to
+snippet dpy.embed
+await ctx.send(embed=discord.Embed(
+	name="${1:name}",
+	title="${2:title}",
+	color=${3:0x2f3136},
+	description="${4:meow}"))
+endsnippet
