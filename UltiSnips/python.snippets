@@ -100,8 +100,15 @@ endsnippet
 # Snippet to
 snippet dpy.embed
 await ctx.send(embed=discord.Embed(
-	name="${1:name}",
-	title="${2:title}",
-	color=${3:0x2f3136},
-	description="${4:meow}"))
+	title="${1:title}",
+	color=${2:0x2f3136},
+	description="${3:meow}"))
+endsnippet
+
+# a bit of error handler
+snippet dpy.onCmdError
+@commands.Cog.listener(name="on_command_error")
+async def on_cmd_error(self, ctx: commands.Context,
+						error: commands.CommandError) -> None:
+	print("You may have a problem")
 endsnippet
